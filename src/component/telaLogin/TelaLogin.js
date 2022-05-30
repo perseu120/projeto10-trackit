@@ -8,7 +8,7 @@ import UserContext from "../contexts/UseContext";
 function TelaLogin() {
 
     const [email, setEmail] = useState("p@ex.com");
-    const [senha, setSenha] = useState("");
+    const [senha, setSenha] = useState("1");
 
     const {token, setToken, setImg} = useContext(UserContext);
 
@@ -28,7 +28,7 @@ function TelaLogin() {
             setImg(response.data.image);
             navigate('/habito');
         })
-        promise.catch((err) => { console.log(err) })
+        promise.catch((err) => { alert("erro ao realizar login"); })
 
     }
 

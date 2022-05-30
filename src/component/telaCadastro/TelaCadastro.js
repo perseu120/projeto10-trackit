@@ -32,7 +32,7 @@ function TelaCadastro() {
     });
 
     promise.catch((err) => {
-      console.log(err);
+      alert("erro ao realizar cadastro");
     });
   }
 

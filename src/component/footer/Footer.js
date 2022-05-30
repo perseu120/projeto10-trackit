@@ -4,7 +4,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function Footer({quantidadeHabitoHoje}) {
+export default function Footer({ quantidadeHabitoHoje }) {
 
     const [porcentagem, setPorcentagem] = useState(quantidadeHabitoHoje);
 
@@ -21,8 +21,8 @@ export default function Footer({quantidadeHabitoHoje}) {
             <div>
                 <Link to={"/hoje"}>
                     <CircularProgressbar
-                        value={  porcentagem*100/quantidadeHabitoHoje}
-                        text={ quantidadeHabitoHoje ?`${porcentagem*100/quantidadeHabitoHoje}%`: "0"}
+                        value={porcentagem * 100 / quantidadeHabitoHoje}
+                        text={quantidadeHabitoHoje ? `${porcentagem * 100 / quantidadeHabitoHoje}%` : "0"}
                         background
                         backgroundPadding={6}
                         styles={buildStyles({
@@ -35,11 +35,11 @@ export default function Footer({quantidadeHabitoHoje}) {
                 </Link>
             </div>
 
-           
-            <p>
-                Historico
-            </p>
-           
+            <Link to={"/historico"}>
+                <p>
+                    Historico
+                </p>
+            </Link>
 
         </RodaPe>
     )

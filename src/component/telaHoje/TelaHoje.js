@@ -88,7 +88,7 @@ const Div = styled.div`
 `
 const H3 = styled.h3`
 
-    width: 172px;
+    
     height: 29px;
     font-family: 'Lexend Deca';
     font-style: normal;
@@ -100,7 +100,6 @@ const H3 = styled.h3`
 `
 const H4 = styled.h4`
 
-    width: 278px;
     height: 22px;
     font-family: 'Lexend Deca';
     font-style: normal;
@@ -108,5 +107,6 @@ const H4 = styled.h4`
     font-size: 17.976px;
     line-height: 22px;
     color: #BABABA;
+    margin-left: 10px;
     
 `
