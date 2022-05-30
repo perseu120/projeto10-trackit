@@ -1,21 +1,50 @@
 import styled from "styled-components";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
-export default function Footer() {
+export default function Footer({quantidadeHabitoHoje}) {
+
+    const [porcentagem, setPorcentagem] = useState(quantidadeHabitoHoje);
+
     return (
         <RodaPe>
 
-            <p>
-                Habitos
-            </p>
+            <Link to={"/habito"}>
+                <p>
+                    Habitos
+                </p>
+            </Link>
 
+
+            <div>
+                <Link to={"/hoje"}>
+                    <CircularProgressbar
+                        value={  porcentagem*100/quantidadeHabitoHoje}
+                        text={ quantidadeHabitoHoje ?`${porcentagem*100/quantidadeHabitoHoje}%`: "0"}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                            backgroundColor: "#52B6FF",
+                            textColor: "#fff",
+                            pathColor: "#fff",
+                            trailColor: "transparent"
+                        })}
+                    />
+                </Link>
+            </div>
+
+           
             <p>
                 Historico
             </p>
+           
 
         </RodaPe>
     )
 }
- 
+
 const RodaPe = styled.footer`
     position: fixed;
     right: 0;
@@ -42,6 +71,12 @@ const RodaPe = styled.footer`
         text-align: center;
         color: #52B6FF;
 
+    }
+
+    div{
+        width: 91px;
+        height: 91px;
+        margin-bottom: 50px;
     }
  
 `

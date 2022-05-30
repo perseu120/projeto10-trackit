@@ -1,21 +1,40 @@
 import styled from "styled-components"
-export default function HabitoSalvo() {
+export default function HabitoSalvo({id, name, dias}) {
+
+    const diasSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
     return (
-        <ContainerCriarHabito>
-            <h4>Ler 1 capítulo de livro</h4>
+        <ContainerCriarHabito id={id}>
+            {console.log(id)}
+            <h4>{name}</h4>
             <BotoeSemana>
-                <Botoes>D</Botoes>
-                <Botoes>S</Botoes>
-                <Botoes>T</Botoes>
-                <Botoes>Q</Botoes>
-                <Botoes>Q</Botoes>
-                <Botoes>S</Botoes>
-                <Botoes>S</Botoes>
+                {diasSemana.map((arr, index) => (<DiasSemana id={index}  dia={arr} dias={dias} />))}
             </BotoeSemana>
 
         </ContainerCriarHabito>
     )
 }
+
+function DiasSemana({ dia, id, dias}) {
+    
+    return (
+        <Botoes  cor={dias.some(elemento=> elemento === id)? "#CFCFCF" : "#FFFFFF"}>{dia}</Botoes>
+    );
+
+
+}
+const Botoes = styled.div`
+
+box-sizing: border-box;
+width: 30px;
+height: 30px;
+background: ${props => props.cor};
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-right: 4px;
+`
 
 const ContainerCriarHabito = styled.div`
  
@@ -27,6 +46,7 @@ const ContainerCriarHabito = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 8px;
 
     input{
 
@@ -59,19 +79,5 @@ const BotoeSemana = styled.div`
     justify-content: start;
     width: 303px;
     margin-bottom: 29px;
-    
-`
-const Botoes = styled.div`
-
-    box-sizing: border-box;
-    width: 30px;
-    height: 30px;
-    background: #FFFFFF;
-    border: 1px solid #D5D5D5;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 4px;
     
 `

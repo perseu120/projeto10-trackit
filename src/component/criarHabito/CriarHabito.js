@@ -1,32 +1,83 @@
-import { useContext } from "react"
+import axios from "axios";
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+import UserContext from "../contexts/UseContext";
 import UserContextAddHabito from "../contexts/UseContextAddHabito"
 export default function CriarHabito() {
 
-    const {setHabito} = useContext(UserContextAddHabito)
+    const { setHabito } = useContext(UserContextAddHabito);
 
-    
+    const [diasClicados, setDiasClicado] = useState([]);
+    const [nomeHabito, setNomeHabito] = useState("");
+    const { token } = useContext(UserContext);
+
+    const body = {
+        name: nomeHabito,
+        days: diasClicados
+    }
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const diasSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+
+    function salvarHabito() {
+
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config);
+
+        promise.then((response) => {
+            console.log(response.data)
+        })
+        promise.catch((err) => {
+            console.log(err);
+        })
+    }
 
     return (
         <ContainerCriarHabito>
-            <input placeholder="Nome do hábito" />
+            <input value={nomeHabito} onChange={(e) => { setNomeHabito(e.target.value) }} placeholder="Nome do hábito" />
             <BotoeSemana>
-                <Botoes>D</Botoes>
-                <Botoes>S</Botoes>
-                <Botoes>T</Botoes>
-                <Botoes>Q</Botoes>
-                <Botoes>Q</Botoes>
-                <Botoes>S</Botoes>
-                <Botoes>S</Botoes>
+                {diasSemana.map((arr, index) => (<DiasSemana key={index} id={index} dia={arr} diasClicados={diasClicados} setDiasClicado={setDiasClicado} />))}
             </BotoeSemana>
 
             <BotoeAcao>
-                <BotaoCancelar onClick={()=>{setHabito(false)}} >cancelar</BotaoCancelar>
-                <BotaoSalvar>Salvar</BotaoSalvar>
+                <BotaoCancelar onClick={() => { setHabito(false) }} >cancelar</BotaoCancelar>
+
+                <BotaoSalvar onClick={ () => { salvarHabito(); setHabito(false) } }>Salvar</BotaoSalvar>
             </BotoeAcao>
         </ContainerCriarHabito>
     )
 }
+
+function DiasSemana({ dia, id, diasClicados, setDiasClicado }) {
+
+    function verificarClick(day) {
+        setDiasClicado(diasClicados.includes(day) ? diasClicados.filter(d => d !== day) : [...diasClicados, day]);
+    }
+    const [isClicado, setIsClicado] = useState(false);
+
+    return (
+        <Botoes onClick={() => { setIsClicado(!isClicado); verificarClick(id) }} cor={isClicado ? "#CFCFCF" : "#FFFFFF"}>{dia}</Botoes>
+    );
+
+
+}
+const Botoes = styled.div`
+
+box-sizing: border-box;
+width: 30px;
+height: 30px;
+background: ${props => props.cor};
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-right: 4px;
+`
 
 const ContainerCriarHabito = styled.div`
  
@@ -38,6 +89,7 @@ const ContainerCriarHabito = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
 
     input{
 
@@ -64,20 +116,6 @@ const BotoeSemana = styled.div`
     justify-content: start;
     width: 303px;
     margin-bottom: 29px;
-    
-`
-const Botoes = styled.div`
-
-    box-sizing: border-box;
-    width: 30px;
-    height: 30px;
-    background: #FFFFFF;
-    border: 1px solid #D5D5D5;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 4px;
     
 `
 const BotaoSalvar = styled.button`

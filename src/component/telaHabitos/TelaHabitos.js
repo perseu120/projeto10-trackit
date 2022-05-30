@@ -15,55 +15,60 @@ export default function TelaHabitos() {
 
     const { token, img } = useContext(UserContext);
     const [habito, setHabito] = useState(false);
+    const [listaHabito, setListaHabito] = useState([]);
 
     const config = {
-        headers:{
-            Authorization:`Bearer ${token}`
+        headers: {
+            Authorization: `Bearer ${token}`
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
-        promise.then((response)=>{
-            console.log(response.data)
+        promise.then((response) => {
+            setListaHabito(response.data)
         })
 
-        promise.catch((err)=>{
+        promise.catch((err) => {
             console.log(err);
         })
 
-    },[])
-    
-    function addHabito(){
+    }, [])
 
-        if(habito === false){
+
+    function addHabito() {
+
+        if (habito === false) {
 
             return <></>
-            
-        }else{
-            
-            
+
+        } else {
+
+
             return <CriarHabito />
         }
     }
-    
+
     return (
-        <UserContextAddHabito.Provider value = {{setHabito}}>
+        <UserContextAddHabito.Provider value={{ setHabito }}>
             <Header img={img} />
             <Topo>
                 <H3>Meus Habitos</H3>
-                <Button onClick={()=>{setHabito(!habito)}}><ion-icon name="add"></ion-icon></Button>
+                <Button onClick={() => { setHabito(!habito)}}><ion-icon name="add"></ion-icon></Button>
             </Topo>
 
             {addHabito()}
             <ContainerHabitos>
-                <p>
+
+                {listaHabito.length === 0 ? <p>
                     você não tem nenhum habito cadastrado ainda
                     adicone um habito para começar a trakear!
-                </p>
-                
+                </p> : listaHabito.map((arr) => (
+
+                    <HabitoSalvo name={arr.name} id={arr.id} dias={arr.days} />
+                ))}
             </ContainerHabitos>
             <Footer />
         </UserContextAddHabito.Provider>
@@ -75,7 +80,9 @@ const ContainerHabitos = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     margin: 0px 18px;
+    
 
     p{
         width: 338px;

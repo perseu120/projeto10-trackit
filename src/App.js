@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TelaCadastro from "./component/telaCadastro/TelaCadastro.js";
 import TelaHabitos from "./component/telaHabitos/TelaHabitos.js";
 import TelaLogin from "./component/telaLogin/TelaLogin.js";
+import TelaHoje from "./component/telaHoje/TelaHoje.js"
 import UserContext from "./component/contexts/UseContext.js";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<TelaLogin />} />
             <Route path="/cadastro" element={<TelaCadastro />} />
             <Route path="/habito" element={<TelaHabitos />} />
+            <Route path="/hoje" element={<TelaHoje />} />
           </Routes>
         </BrowserRouter>
       </Container>

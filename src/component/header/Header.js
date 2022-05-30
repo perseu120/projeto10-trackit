@@ -5,7 +5,7 @@ export default function Header({img}) {
     return (
         <ContainerHeader>
             <h2>
-                CINEFLEX
+                TrackIt
             </h2>
 
             <img src={img} alt='foto usuario' />
