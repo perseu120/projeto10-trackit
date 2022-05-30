@@ -57,7 +57,7 @@ export default function TelaHabitos() {
             {habitoHoje.map((arr)=>( <ConcluirHabito key={arr.id} id={arr.id} name={arr.name} done={arr.done} sequencia={arr.currentSequence} record={arr.highestSequence} /> ))}
                 
             </ContainerHabitos>
-            <Footer quantidadeHabitoHoje ={habitoHoje.length} />
+            <Footer quantidadeHabitoHoje ={habitoHoje.length} habitoHoje={habitoHoje} />
         </>
     )
 }
